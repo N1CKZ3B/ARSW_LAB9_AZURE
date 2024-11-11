@@ -112,8 +112,14 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 ![image](https://github.com/user-attachments/assets/71e0b430-c578-46fd-afb7-172e62769365)
 
 11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
-12. Evalue el escenario de calidad asociado al requerimiento no funcional de escalabilidad y concluya si usando este modelo de escalabilidad logramos cumplirlo.
-13. Vuelva a dejar la VM en el tamaño inicial para evitar cobros adicionales.
+
+    ![image](https://github.com/user-attachments/assets/ed60accf-134c-48be-aa77-d14d11a0f6f9)
+
+    ![image](https://github.com/user-attachments/assets/e17adb39-4bd0-4778-847f-03474ef89474)
+
+
+13. Evalue el escenario de calidad asociado al requerimiento no funcional de escalabilidad y concluya si usando este modelo de escalabilidad logramos cumplirlo.
+14. Vuelva a dejar la VM en el tamaño inicial para evitar cobros adicionales.
 
 **Preguntas**
 

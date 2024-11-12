@@ -3,7 +3,7 @@
 
 ## Escalamiento en Azure con Maquinas Virtuales, Sacale Sets y Service Plans
 
-### Nicolas Sebastian Achuri Macias y Ricardo ANdres Villamizar Mendez
+### Nicolas Sebastian Achuri Macias y Ricardo Andres Villamizar Mendez
 
 ### Dependencias
 * Cree una cuenta gratuita dentro de Azure. Para hacerlo puede guiarse de esta [documentación](https://azure.microsoft.com/es-es/free/students/). Al hacerlo usted contará con $100 USD para gastar durante 12 meses.

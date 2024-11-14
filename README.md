@@ -5,6 +5,7 @@
 
 ### Nicolas Sebastian Achuri Macias y Ricardo Andres Villamizar Mendez
 
+---------------------------------------
 ### Dependencias
 * Cree una cuenta gratuita dentro de Azure. Para hacerlo puede guiarse de esta [documentación](https://azure.microsoft.com/es-es/free/students/). Al hacerlo usted contará con $100 USD para gastar durante 12 meses.
 
@@ -126,29 +127,74 @@ Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000)
 **Preguntas**
 
 1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?
+   Son alrededor de 7 recursos:
+   * Una maquina virtual VERTICAL-SCALABILITY
+   * Una dirección IP pública VERTICAL-SCALABILITY-ip
+   * Un grupo de seguridad VERTICAL-SCALABILITY-ip
+   * Una red virtual VERTICAL-SCALABILITY-vnet
+   * Una interfaz de red VERTICAL-SCALABILITY571_z1
+   * Un disco VERTICAL-SCALABILITY-disk
+   * Claves SSH VERTICAL-SCALABILITY_Key
 2. ¿Brevemente describa para qué sirve cada recurso?
+
+     **Máquina virtual:** Las Azure Virtual Machines son instancias escalables bajo demanda que actúan como servidores, proporcionando hardware virtual (CPU, memoria, almacenamiento) de forma aislada del sistema subyacente.
+     
+      **Dirección IP pública:** Facilitan la comunicación entrante de Internet a recursos de Azure y la conexión de estos con servicios públicos y la red.
+      
+      **Grupo de seguridad:** Permiten configurar reglas de seguridad en la red agrupando máquinas virtuales y sus políticas.
+      
+      **Red virtual:** Azure Virtual Network crea redes privadas seguras que conectan recursos de Azure entre sí, con Internet y con redes locales, ofreciendo escalabilidad y aislamiento.
+      
+      **Interfaz de red:** Una NIC permite que las máquinas virtuales de Azure se comuniquen con redes internas, externas y locales.
+      
+      **Disco:** Azure Managed Disks ofrece almacenamiento de bloques duradero para máquinas virtuales con opciones como Ultra Disk, SSD Premium, SSD estándar y HDD estándar, facturados según tamaño y uso.
+   
 3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?
+
+      Al ejecutar npm FibonacciApp.js en SSH, el proceso se asocia al terminal activo y se termina al cerrar la sesión. Para mantenerlo activo, se usa forever para ejecutarlo en segundo plano.
+
 4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
+
+
+   La función presenta un tiempo de ejecución creciente con cada iteración debido a la acumulación de operaciones. Esto hace que el desempeño dependa directamente del número de iteraciones, pudiendo aumentar de forma proporcional o exponencial según la complejidad interna. Optimizar su diseño es esencial para manejar volúmenes altos de iteraciones eficientemente.
+
 5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
 
     ![image](https://github.com/user-attachments/assets/24c2af28-030b-4a1d-97ca-dd8ff9721b68)
 
-7. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
+6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
     * Tiempos de ejecución de cada petición.
       ![image](https://github.com/user-attachments/assets/fe669f2e-a454-4fd6-8139-6bab893d4bb2)
       ![image](https://github.com/user-attachments/assets/7055dc81-ce40-4920-bc5c-10946df8f54d)
 
     * Si hubo fallos documentelos y explique.
 
-        socket hangup
+      El error "socket hangup" ocurre cuando la conexión entre cliente y servidor se interrumpe inesperadamente, generalmente por cierre abrupto, tiempo de espera agotado, sobrecarga del servidor o problemas de red. Para solucionarlo, ajusta los tiempos de espera, optimiza el servidor, maneja excepciones adecuadamente y verifica la conectividad de la red.
+      
       ![image](https://github.com/user-attachments/assets/4123065a-973c-45c1-ba10-e2d5212a48bf)
 
       
 8. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
+
+   
+   
+   El tamaño B1ls es ideal para tareas ligeras y económicas, como servidores de desarrollo o pruebas básicas, ya que tiene recursos limitados (1 vCPU, 0.5 GiB de memoria) y un costo bajo ($3.80/mes). Por otro lado, el tamaño B2ms ofrece mayor capacidad (2 vCPU, 8 GiB de memoria) a un costo mayor ($58.40/mes), siendo más adecuado para aplicaciones web pequeñas, bases de datos ligeras o entornos que requieren más flexibilidad y rendimiento.
+   
 9. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
+    
+   El análisis previo muestra que el escalamiento vertical es una solución efectiva: mientras que el tamaño **B1ls** alcanzaba casi su capacidad máxima bajo múltiples solicitudes, al escalar al tamaño **B2ms**, el uso de CPU se mantuvo por debajo del 50%. Sin embargo, también es crucial optimizar el algoritmo utilizado para mejorar la eficiencia general de la aplicación.
+   
 10. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
-11. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
-12. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
+    
+    Aumenta el precio
+    
+12. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
+
+    Si, por que los tiempos se redujeron en gran medida
+
+14. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
+
+No mejoran los tiempos
 
 ### Parte 2 - Escalabilidad horizontal
 
@@ -248,18 +294,109 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 ![image](https://github.com/user-attachments/assets/4462acf4-9fd0-49f4-bbad-48e746697e64)
 
 
-**Preguntas**
+## **Preguntas**
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
+
+### Tipos de Balanceadores de Carga en Azure
+
+1. **Application Gateway (Nivel de Aplicación)**:
+   - Opera en la capa 7 del modelo OSI.
+   - Dirige el tráfico según detalles específicos como URL o encabezados HTTP.
+   - Ofrece seguridad avanzada como cifrado SSL y protección contra DDoS.
+
+2. **Load Balancer (Nivel de Transporte)**:
+   - Funciona en la capa 4 del modelo OSI.
+   - Distribuye tráfico según IP, puerto y protocolo.
+
+3. **Gateway VPN**:
+   - Establece conexiones seguras entre redes locales y virtuales de Azure mediante VPN.
+   - Facilita la integración entre servicios locales y en la nube.
+
+---
+
+### SKU en Azure
+
+Los SKU (Stock Keeping Units) son identificadores únicos que definen las características, capacidades y precios de los recursos en Azure. 
+
+#### Ejemplos de SKU:
+- **Máquinas Virtuales**: Núcleos de CPU, RAM, almacenamiento y rendimiento de red.
+- **Bases de Datos**: Tamaño, rendimiento y disponibilidad optimizados.
+- **Almacenamiento**: Capacidad, rendimiento y durabilidad configurables.
+- **Servicios de Red**: Ancho de banda, seguridad y disponibilidad.
+
+---
+
+### Importancia de la IP Pública en Balanceadores de Carga
+
+Para permitir el acceso a recursos de Azure detrás de un balanceador de carga, es imprescindible asignarle una **IP pública**. Esta dirección actúa como punto de entrada para el tráfico externo, garantizando conectividad y acceso a los servicios en la nube.
+
+
 * ¿Cuál es el propósito del *Backend Pool*?
+
+
+   El BackEnd Pool distribuye el tráfico entrante hacia recursos como máquinas virtuales o instancias de contenedor en grupos de escalado. Utiliza algoritmos como **Round Robin** o **Hash de IP** para garantizar una carga balanceada y eficiente entre los recursos disponibles.
+
+  
 * ¿Cuál es el propósito del *Health Probe*?
+
+  El **Health Probe** monitorea los recursos en el Backend Pool para garantizar que solo los que están en buen estado reciban tráfico. Envía solicitudes periódicas (HTTP o TCP) para verificar su disponibilidad:
+
+- **Recurso saludable**: Responde correctamente y sigue recibiendo tráfico.
+- **Recurso no saludable**: No responde o muestra errores, y se excluye del tráfico.
+
+  
+
+
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
+
+   
+     La **Load Balancing Rule** dirige el tráfico entrante hacia las instancias de backend de manera eficiente y equitativa. Permite configurar el enrutamiento según criterios como rutas URL o puertos, asegurando una distribución uniforme de solicitudes.
+
+#### Sesiones Persistentes
+- **IP Affinity o Cookie Affinity**: Mantienen la continuidad de la sesión entre un cliente y una instancia específica de backend.
+- **Impacto**: Aunque mejoran la experiencia del usuario, pueden limitar la escalabilidad, ya que el balanceador debe redirigir todas las solicitudes de un cliente a la misma instancia, lo que puede generar cargas desiguales.
+
+Es importante equilibrar la persistencia de sesiones con la escalabilidad del sistema para evitar cuellos de botella y garantizar un rendimiento óptimo.
+
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
+  
+1. **Virtual Network (VNet)**:
+   - Servicio para crear una red virtual aislada en la nube.
+   - Permite definir un rango de direcciones IP, subredes, reglas de seguridad y puertas de enlace para conectividad con Internet o redes locales.
+
+2. **Subnet**:
+   - Subdivisión de una VNet para segmentar la red en partes más pequeñas.
+   - Cada Subnet tiene su propio rango de direcciones IP dentro del espacio de la VNet y reglas de seguridad específicas.
+
+3. **Address Space**:
+   - Rango de direcciones IP privadas asignado a una VNet.
+   - Define las direcciones disponibles para la VNet y sus subredes.
+
+4. **Address Range**:
+   - Rango de direcciones IP asignado a una Subnet dentro de la VNet.
+   - Los recursos de la Subnet reciben direcciones IP de este rango.
+  
+   
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
+
+
+   Una Availability Zone es un grupo de centros de datos interconectados dentro de una misma región, ubicados en sitios físicos independientes y aislados de fallas en otras zonas. Esto garantiza mayor disponibilidad y resiliencia para las aplicaciones alojadas.
+   
+   Distribuir los recursos de una aplicación en tres zonas de disponibilidad mejora su disponibilidad y rendimiento, ya que permite operar incluso si una o dos zonas fallan. Además, el tráfico se distribuye de manera más eficiente entre las zonas.
+   
+   La IP zone-redundant es una dirección IP pública asignable a recursos como máquinas virtuales o balanceadores de carga. Está disponible en todas las zonas de una región, asegurando acceso continuo incluso en caso de fallos en una de las zonas.
+
 * ¿Cuál es el propósito del *Network Security Group*?
-* Informe de newman 1 (Punto 2)
+
+El propósito del Network Security Group (NSG) en Azure es proporcionar un nivel adicional de seguridad al permitir o denegar el tráfico de red hacia y desde los recursos de Azure, como máquinas virtuales, subredes y redes virtuales. El NSG actúa como un firewall virtual que filtra el tráfico basándose en reglas que especificas.
+
+
+  
+
 * Presente el Diagrama de Despliegue de la solución.
 
+![image](https://github.com/user-attachments/assets/42728a7f-349b-4ffb-a14f-5436226dd483)
 
 
 
